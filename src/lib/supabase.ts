@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
-import { getEvent } from '@tanstack/start-server-core'
+// @ts-ignore — alias resolves to @tanstack/start-server-core/dist/esm/h3.js
+// bypassing rolldown's broken re-export chain in index.js
+import { getEvent } from 'tss-h3-internals'
 import { parseCookies, setCookie } from 'h3'
 import { getSupabaseServerEnv } from '@/lib/server-env'
 
