@@ -4,10 +4,6 @@ import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
-import 'vite';
-import '@vitejs/plugin-react';
-import '@tanstack/react-start/plugin/vite';
-import '@tailwindcss/vite';
 import 'node:fs';
 import 'node:path';
 

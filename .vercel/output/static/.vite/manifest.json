@@ -1,6 +1,6 @@
 {
   "C:/laragon/www/portfolio/provision-task-management/src/styles/app.css": {
-    "file": "assets/app-Bak7_qe-.css",
+    "file": "assets/app-BzXtBgbt.css",
     "src": "C:/laragon/www/portfolio/provision-task-management/src/styles/app.css"
   },
   "_Avatar-BQMRPHwM.js": {
@@ -153,7 +153,7 @@
     ]
   },
   "src/client.tsx": {
-    "file": "assets/main-C4ad_r5-.js",
+    "file": "assets/main-S7sxyQ4u.js",
     "name": "main",
     "src": "src/client.tsx",
     "isEntry": true,
@@ -177,11 +177,11 @@
       "src/routes/_authed/projects.$projectId.settings.tsx?tsr-split=component"
     ],
     "assets": [
-      "assets/app-Bak7_qe-.css"
+      "assets/app-BzXtBgbt.css"
     ]
   },
   "src/routes/_authed.tsx?tsr-split=component": {
-    "file": "assets/_authed-wJgjtcNA.js",
+    "file": "assets/_authed-Bt8IZ6YO.js",
     "name": "_authed",
     "src": "src/routes/_authed.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -201,7 +201,7 @@
     ]
   },
   "src/routes/_authed/dashboard.tsx?tsr-split=component": {
-    "file": "assets/dashboard-DUmGfndm.js",
+    "file": "assets/dashboard-BlZSKZv1.js",
     "name": "dashboard",
     "src": "src/routes/_authed/dashboard.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -218,7 +218,7 @@
     ]
   },
   "src/routes/_authed/projects.$projectId.index.tsx?tsr-split=component": {
-    "file": "assets/projects._projectId.index-Dzy0WfP7.js",
+    "file": "assets/projects._projectId.index-DJrt98_1.js",
     "name": "projects._projectId.index",
     "src": "src/routes/_authed/projects.$projectId.index.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -239,7 +239,7 @@
     ]
   },
   "src/routes/_authed/projects.$projectId.settings.tsx?tsr-split=component": {
-    "file": "assets/projects._projectId.settings-CTUPWLr1.js",
+    "file": "assets/projects._projectId.settings-exvgwRBo.js",
     "name": "projects._projectId.settings",
     "src": "src/routes/_authed/projects.$projectId.settings.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -259,7 +259,7 @@
     ]
   },
   "src/routes/_authed/projects.$projectId.tsx?tsr-split=component": {
-    "file": "assets/projects._projectId-BWIRENEB.js",
+    "file": "assets/projects._projectId-CExWN4FH.js",
     "name": "projects._projectId",
     "src": "src/routes/_authed/projects.$projectId.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -272,7 +272,7 @@
     ]
   },
   "src/routes/_authed/projects.index.tsx?tsr-split=component": {
-    "file": "assets/projects.index-DEY8FFGY.js",
+    "file": "assets/projects.index-CcrK7KWA.js",
     "name": "projects.index",
     "src": "src/routes/_authed/projects.index.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -304,7 +304,7 @@
     ]
   },
   "src/routes/_authed/projects.tsx?tsr-split=component": {
-    "file": "assets/projects-CocBaJC8.js",
+    "file": "assets/projects-DJzulNqL.js",
     "name": "projects",
     "src": "src/routes/_authed/projects.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -314,7 +314,7 @@
     ]
   },
   "src/routes/login.tsx?tsr-split=component": {
-    "file": "assets/login-DoPx33TU.js",
+    "file": "assets/login-BkAoE6Zb.js",
     "name": "login",
     "src": "src/routes/login.tsx?tsr-split=component",
     "isDynamicEntry": true,
@@ -328,7 +328,7 @@
     ]
   },
   "src/routes/signup.tsx?tsr-split=component": {
-    "file": "assets/signup-BKgK9aKe.js",
+    "file": "assets/signup-B4whp7XA.js",
     "name": "signup",
     "src": "src/routes/signup.tsx?tsr-split=component",
     "isDynamicEntry": true,

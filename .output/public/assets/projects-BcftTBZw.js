@@ -1,0 +1,1 @@
+import{i as e}from"./useRouterState-CbJe8_fF.js";import{v as t}from"./main-DdyBMMOu.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};

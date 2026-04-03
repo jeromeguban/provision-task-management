@@ -3,10 +3,6 @@ import http from 'node:http';
 import https from 'node:https';
 import { EventEmitter } from 'node:events';
 import { Buffer as Buffer$1 } from 'node:buffer';
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import tailwindcss from '@tailwindcss/vite';
 import { promises, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 
@@ -4114,31 +4110,7 @@ function klona(x) {
 	return x;
 }
 
-const patchTssProcessEnv = {
-  name: "patch-tss-process-env",
-  transform(code, id) {
-    if (id.includes("start-server-functions-client")) {
-      return code.replace("process.env.TSS_APP_BASE", '""');
-    }
-  }
-};
-const appConfig0 = defineConfig({
-  resolve: {
-    tsconfigPaths: true
-  },
-  plugins: [
-    patchTssProcessEnv,
-    ...tanstackStart({
-      customViteReactPlugin: true,
-      tsr: {
-        srcDirectory: "src"
-      },
-      target: "vercel"
-    }),
-    tailwindcss(),
-    react()
-  ]
-});
+const appConfig0 = {};
 
 const inlineAppConfig = {};
 
@@ -4456,7 +4428,7 @@ const plugins = [
   
 ];
 
-const _lazy_vr5YKA = () => import('./routeTree.gen-B1ahvekk.mjs').then(function (n) { return n.C; });
+const _lazy_vr5YKA = () => import('./routeTree.gen-HKR4NBWg.mjs').then(function (n) { return n.C; });
 
 const handlers = [
   { route: '/**', handler: _lazy_vr5YKA, lazy: true, middleware: false, method: undefined }
