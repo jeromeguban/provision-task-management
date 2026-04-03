@@ -1,9 +1,14 @@
 import { createServerClient } from '@supabase/ssr'
-// @ts-ignore — alias resolves to @tanstack/start-server-core/dist/esm/h3.js
-// bypassing rolldown's broken re-export chain in index.js
-import { getEvent } from 'tss-h3-internals'
 import { parseCookies, setCookie } from 'h3'
 import { getSupabaseServerEnv } from '@/lib/server-env'
+import type { H3Event } from 'h3'
+// Named imports from @tanstack/start-server-core fail rolldown's static export
+// analysis due to a re-export chain bug. Namespace import bypasses that check
+// while still using the same ESM module instance (and AsyncLocalStorage) as
+// TanStack Start's runtime.
+import * as tssCore from '@tanstack/start-server-core'
+
+const getEvent = (tssCore as unknown as { getEvent: () => H3Event }).getEvent
 
 export function getSupabaseServerClient() {
   const { supabaseUrl, supabaseAnonKey } = getSupabaseServerEnv()
