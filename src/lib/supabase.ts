@@ -5,10 +5,10 @@ import { getSupabaseServerEnv } from '@/lib/server-env'
 // internal h3 file path directly, which is the part that breaks on Vercel.
 import * as startServer from '@tanstack/react-start/server'
 
-const { parseCookies, setCookie, setHeaders } = startServer as unknown as {
-  parseCookies: () => Record<string, string>
+const { getCookies, setCookie, setResponseHeaders } = startServer as unknown as {
+  getCookies: () => Record<string, string>
   setCookie: (name: string, value: string, options?: unknown) => void
-  setHeaders: (headers: HeadersInit) => void
+  setResponseHeaders: (headers: HeadersInit) => void
 }
 
 export function getSupabaseServerClient() {
@@ -17,7 +17,7 @@ export function getSupabaseServerClient() {
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
-        const cookies = parseCookies()
+        const cookies = getCookies()
         return Object.entries(cookies).map(([name, value]) => ({ name, value }))
       },
       setAll(cookiesToSet, headers) {
@@ -25,7 +25,7 @@ export function getSupabaseServerClient() {
           setCookie(name, value, options)
         }
 
-        setHeaders(headers)
+        setResponseHeaders(headers)
       },
     },
   })

@@ -6,7 +6,7 @@ import { Modal } from '@/components/ui/Modal'
 import { GripVertical, Plus } from 'lucide-react'
 import { createTask, deleteTask, getTask, moveTask, updateTask } from '@/server/tasks'
 import type { TaskWithRelations } from '@/types'
-import type { TaskPriority, TaskStatus } from '@prisma/client'
+import type { TaskPriority, TaskStatus } from '@/generated/prisma/client'
 
 interface TaskBoardProps {
   projectId: string

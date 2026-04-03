@@ -7,7 +7,7 @@ import { TaskDetail } from './TaskDetail'
 import { Calendar, ChevronDown, ChevronRight, MessageSquare, Plus } from 'lucide-react'
 import { createTask, deleteTask, getTask, updateTask } from '@/server/tasks'
 import type { TaskWithRelations } from '@/types'
-import type { TaskPriority, TaskStatus } from '@prisma/client'
+import type { TaskPriority, TaskStatus } from '@/generated/prisma/client'
 
 interface TaskListProps {
   projectId: string

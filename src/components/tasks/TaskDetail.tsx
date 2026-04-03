@@ -24,7 +24,7 @@ import type {
   TaskCommentWithAuthor,
   TaskWithRelations,
 } from "@/types";
-import type { TaskPriority, TaskStatus } from "@prisma/client";
+import type { TaskPriority, TaskStatus } from "@/generated/prisma/client";
 
 interface TaskDetailProps {
   task: TaskWithRelations;

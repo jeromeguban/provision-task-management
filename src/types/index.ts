@@ -1,4 +1,4 @@
-import type { User, Project, ProjectMember, Task, TaskComment } from '@prisma/client'
+import type { User, Project, ProjectMember, Task, TaskComment } from '@/generated/prisma/client'
 
 export type { User, Project, ProjectMember, Task, TaskComment }
 

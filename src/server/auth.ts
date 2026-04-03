@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { prisma } from '@/lib/prisma'
 import { hasSupabaseServerEnv } from '@/lib/server-env'
-import { ProjectRole } from '@prisma/client'
+import { ProjectRole } from '@/generated/prisma/client'
 
 const projectRoleRank: Record<ProjectRole, number> = {
   VIEWER: 0,
@@ -159,7 +159,7 @@ export const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
 })
 
 export const loginFn = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: { email: string; password: string }) => data,
   )
   .handler(async ({ data }) => {
@@ -184,7 +184,7 @@ export const loginFn = createServerFn({ method: 'POST' })
   })
 
 export const signupFn = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: { email: string; password: string; fullName: string }) => data,
   )
   .handler(async ({ data }) => {

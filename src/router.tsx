@@ -6,6 +6,9 @@ let router: ReturnType<typeof createRouter> | undefined
 export function createRouter() {
   const router = createTanStackRouter({
     routeTree,
+    context: {
+      user: null,
+    },
     scrollRestoration: true,
     defaultPreload: 'intent',
   })

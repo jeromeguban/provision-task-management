@@ -19,11 +19,7 @@ export default defineConfig({
   plugins: [
     patchTssProcessEnv,
     ...tanstackStart({
-      customViteReactPlugin: true,
-      tsr: {
-        srcDirectory: 'src',
-      },
-      target: 'vercel',
+      srcDirectory: 'src',
     }),
     tailwindcss(),
     react(),

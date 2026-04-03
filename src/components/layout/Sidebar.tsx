@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { getUserProjects } from "@/server/projects";
-import type { Project } from "@prisma/client";
+import type { Project } from "@/generated/prisma/client";
 
 interface SidebarProps {
   open: boolean;

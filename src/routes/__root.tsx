@@ -5,7 +5,7 @@ import {
   Link,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
-import type { User } from "@prisma/client";
+import type { User } from "@/generated/prisma/client";
 import appCss from "@/styles/app.css?url";
 import { fetchUser } from "@/server/auth";
 

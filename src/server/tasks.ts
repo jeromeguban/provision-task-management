@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { prisma } from '@/lib/prisma'
-import type { TaskStatus, TaskPriority } from '@prisma/client'
+import type { TaskStatus, TaskPriority } from '@/generated/prisma/client'
 
 async function getAuthUser() {
   const supabase = getSupabaseServerClient()
@@ -25,7 +25,7 @@ function clampIndex(index: number, max: number) {
 }
 
 export const getTasksByProject = createServerFn({ method: 'GET' })
-  .validator(
+  .inputValidator(
     (data: {
       projectId: string
       status?: TaskStatus
@@ -61,7 +61,7 @@ export const getTasksByProject = createServerFn({ method: 'GET' })
   })
 
 export const getTask = createServerFn({ method: 'GET' })
-  .validator((data: { taskId: string }) => data)
+  .inputValidator((data: { taskId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
 
@@ -83,7 +83,7 @@ export const getTask = createServerFn({ method: 'GET' })
   })
 
 export const createTask = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: {
       projectId: string
       title: string
@@ -121,7 +121,7 @@ export const createTask = createServerFn({ method: 'POST' })
   })
 
 export const updateTask = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: {
       taskId: string
       title?: string
@@ -168,7 +168,7 @@ export const updateTask = createServerFn({ method: 'POST' })
   })
 
 export const moveTask = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: {
       taskId: string
       targetStatus: TaskStatus
@@ -254,7 +254,7 @@ export const moveTask = createServerFn({ method: 'POST' })
   })
 
 export const deleteTask = createServerFn({ method: 'POST' })
-  .validator((data: { taskId: string }) => data)
+  .inputValidator((data: { taskId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
     const task = await prisma.task.findUniqueOrThrow({
@@ -267,7 +267,7 @@ export const deleteTask = createServerFn({ method: 'POST' })
   })
 
 export const addComment = createServerFn({ method: 'POST' })
-  .validator((data: { taskId: string; content: string }) => data)
+  .inputValidator((data: { taskId: string; content: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
     const task = await prisma.task.findUniqueOrThrow({
@@ -286,7 +286,7 @@ export const addComment = createServerFn({ method: 'POST' })
   })
 
 export const getProjectMembers = createServerFn({ method: 'GET' })
-  .validator((data: { projectId: string }) => data)
+  .inputValidator((data: { projectId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
     await requireProjectMember(data.projectId, authUser.id)
@@ -298,7 +298,7 @@ export const getProjectMembers = createServerFn({ method: 'GET' })
   })
 
 export const deleteComment = createServerFn({ method: 'POST' })
-  .validator((data: { commentId: string }) => data)
+  .inputValidator((data: { commentId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
 

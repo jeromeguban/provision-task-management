@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { prisma } from '@/lib/prisma'
-import { ProjectRole } from '@prisma/client'
+import { ProjectRole } from '@/generated/prisma/client'
 
 async function getAuthUser() {
   const supabase = getSupabaseServerClient()
@@ -34,7 +34,7 @@ export const getUserProjects = createServerFn({ method: 'GET' }).handler(async (
 })
 
 export const getProject = createServerFn({ method: 'GET' })
-  .validator((data: { projectId: string }) => data)
+  .inputValidator((data: { projectId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
 
@@ -64,7 +64,7 @@ export const getProject = createServerFn({ method: 'GET' })
   })
 
 export const createProject = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: { name: string; description?: string; color?: string }) => data,
   )
   .handler(async ({ data }) => {
@@ -89,7 +89,7 @@ export const createProject = createServerFn({ method: 'POST' })
   })
 
 export const updateProject = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: { projectId: string; name?: string; description?: string; color?: string }) => data,
   )
   .handler(async ({ data }) => {
@@ -121,7 +121,7 @@ export const updateProject = createServerFn({ method: 'POST' })
   })
 
 export const deleteProject = createServerFn({ method: 'POST' })
-  .validator((data: { projectId: string }) => data)
+  .inputValidator((data: { projectId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
 
@@ -143,7 +143,7 @@ export const deleteProject = createServerFn({ method: 'POST' })
   })
 
 export const addProjectMember = createServerFn({ method: 'POST' })
-  .validator(
+  .inputValidator(
     (data: { projectId: string; email: string; role?: ProjectRole }) => data,
   )
   .handler(async ({ data }) => {
@@ -195,7 +195,7 @@ export const addProjectMember = createServerFn({ method: 'POST' })
   })
 
 export const removeProjectMember = createServerFn({ method: 'POST' })
-  .validator((data: { projectId: string; userId: string }) => data)
+  .inputValidator((data: { projectId: string; userId: string }) => data)
   .handler(async ({ data }) => {
     const authUser = await getAuthUser()
 
