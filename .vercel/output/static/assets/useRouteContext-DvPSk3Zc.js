@@ -1,1 +1,0 @@
-import{n as e}from"./useParams-CsPb4WYH.js";function t(t){return e({...t,select:e=>t.select?t.select(e.context):e.context})}export{t};
