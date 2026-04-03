@@ -1,4 +1,4 @@
-import { x as createServerRpc, y as createServerFn, z as getSupabaseServerClient, A as prisma } from './routeTree.gen-ZPSO4hcL.mjs';
+import { x as createServerRpc, y as createServerFn, z as hasSupabaseServerEnv, A as getSupabaseServerClient, B as prisma } from './routeTree.gen-B1ahvekk.mjs';
 import '@tanstack/react-router';
 import 'react/jsx-runtime';
 import '@tanstack/react-router/ssr/server';
@@ -118,11 +118,13 @@ var logoutFn_createServerFn_handler = createServerRpc("src_server_auth_ts--logou
   return logoutFn.__executeServer(opts, signal);
 });
 var fetchUser = createServerFn({ method: "GET" }).handler(fetchUser_createServerFn_handler, async () => {
+  if (!hasSupabaseServerEnv()) return null;
   const { data: { user: authUser } } = await getSupabaseServerClient().auth.getUser();
   if (!authUser) return null;
   return await syncUserFromAuth(authUser);
 });
 var loginFn = createServerFn({ method: "POST" }).validator((data) => data).handler(loginFn_createServerFn_handler, async ({ data }) => {
+  if (!hasSupabaseServerEnv()) return { error: "Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY." };
   const { error } = await getSupabaseServerClient().auth.signInWithPassword({
     email: data.email,
     password: data.password
@@ -131,6 +133,7 @@ var loginFn = createServerFn({ method: "POST" }).validator((data) => data).handl
   return { error: null };
 });
 var signupFn = createServerFn({ method: "POST" }).validator((data) => data).handler(signupFn_createServerFn_handler, async ({ data }) => {
+  if (!hasSupabaseServerEnv()) return { error: "Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY." };
   const { error } = await getSupabaseServerClient().auth.signUp({
     email: data.email,
     password: data.password,
@@ -140,9 +143,10 @@ var signupFn = createServerFn({ method: "POST" }).validator((data) => data).hand
   return { error: null };
 });
 var logoutFn = createServerFn({ method: "POST" }).handler(logoutFn_createServerFn_handler, async () => {
+  if (!hasSupabaseServerEnv()) return { success: true };
   await getSupabaseServerClient().auth.signOut();
   return { success: true };
 });
 
 export { fetchUser_createServerFn_handler, loginFn_createServerFn_handler, logoutFn_createServerFn_handler, signupFn_createServerFn_handler };
-//# sourceMappingURL=auth-By1TeBhq.mjs.map
+//# sourceMappingURL=auth-DEhwmYdl.mjs.map

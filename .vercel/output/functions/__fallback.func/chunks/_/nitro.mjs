@@ -4456,7 +4456,7 @@ const plugins = [
   
 ];
 
-const _lazy_vr5YKA = () => import('./routeTree.gen-ZPSO4hcL.mjs').then(function (n) { return n.B; });
+const _lazy_vr5YKA = () => import('./routeTree.gen-B1ahvekk.mjs').then(function (n) { return n.C; });
 
 const handlers = [
   { route: '/**', handler: _lazy_vr5YKA, lazy: true, middleware: false, method: undefined }

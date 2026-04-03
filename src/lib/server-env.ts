@@ -8,6 +8,10 @@ function requireServerEnv(name: string) {
   return value
 }
 
+function hasServerEnv(name: string) {
+  return Boolean(process.env[name]?.trim())
+}
+
 export function getDatabaseUrl() {
   const databaseUrl = requireServerEnv('DATABASE_URL')
 
@@ -20,9 +24,17 @@ export function getDatabaseUrl() {
   return databaseUrl
 }
 
+export function hasDatabaseUrl() {
+  return hasServerEnv('DATABASE_URL')
+}
+
 export function getSupabaseServerEnv() {
   return {
     supabaseUrl: requireServerEnv('SUPABASE_URL'),
     supabaseAnonKey: requireServerEnv('SUPABASE_ANON_KEY'),
   }
+}
+
+export function hasSupabaseServerEnv() {
+  return hasServerEnv('SUPABASE_URL') && hasServerEnv('SUPABASE_ANON_KEY')
 }

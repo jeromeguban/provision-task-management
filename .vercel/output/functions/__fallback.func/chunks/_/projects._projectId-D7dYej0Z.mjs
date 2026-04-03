@@ -1,4 +1,4 @@
-import { d as Route } from './routeTree.gen-ZPSO4hcL.mjs';
+import { d as Route } from './routeTree.gen-B1ahvekk.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { Link, Outlet } from '@tanstack/react-router';
 import { ChevronLeft, Columns3, Settings } from 'lucide-react';
@@ -71,4 +71,4 @@ function ProjectLayout() {
 }
 
 export { ProjectLayout as component };
-//# sourceMappingURL=projects._projectId-Bnt1VQT-.mjs.map
+//# sourceMappingURL=projects._projectId-D7dYej0Z.mjs.map

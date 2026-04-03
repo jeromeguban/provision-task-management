@@ -1,4 +1,4 @@
-import { R as Route } from './routeTree.gen-ZPSO4hcL.mjs';
+import { R as Route } from './routeTree.gen-B1ahvekk.mjs';
 import { C as Card } from './Card-jDSerDDM.mjs';
 import { B as Badge } from './Badge-Dd7uaF2k.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
@@ -298,4 +298,4 @@ function DashboardPage() {
 }
 
 export { DashboardPage as component };
-//# sourceMappingURL=dashboard-BWwcVDVW.mjs.map
+//# sourceMappingURL=dashboard-BD6CVBzI.mjs.map

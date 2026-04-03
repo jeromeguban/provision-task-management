@@ -1,4 +1,4 @@
-import { b as Route } from './routeTree.gen-ZPSO4hcL.mjs';
+import { b as Route } from './routeTree.gen-B1ahvekk.mjs';
 import { C as Card } from './Card-jDSerDDM.mjs';
 import { B as Badge } from './Badge-Dd7uaF2k.mjs';
 import { B as Button } from './Button-B2JAha6z.mjs';
@@ -106,4 +106,4 @@ function ProjectsListPage() {
 }
 
 export { ProjectsListPage as component };
-//# sourceMappingURL=projects.index-CkK-jzAN.mjs.map
+//# sourceMappingURL=projects.index-BLqkfE_C.mjs.map

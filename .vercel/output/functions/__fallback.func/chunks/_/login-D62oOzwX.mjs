@@ -1,8 +1,8 @@
-import { s as signupFn } from './routeTree.gen-ZPSO4hcL.mjs';
+import { l as loginFn } from './routeTree.gen-B1ahvekk.mjs';
 import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
 import { useNavigate, Link } from '@tanstack/react-router';
 import { useState, useEffect, startTransition } from 'react';
-import { CheckSquare, User, Mail, Lock, UserPlus } from 'lucide-react';
+import { CheckSquare, Mail, Lock, LogIn } from 'lucide-react';
 import '@tanstack/react-router/ssr/server';
 import '@tanstack/history';
 import '@tanstack/router-core/ssr/client';
@@ -27,21 +27,32 @@ import '@supabase/ssr';
 import '@prisma/client';
 
 var LOADER_DURATION_MS = 2400;
-function SignupPage() {
+function LoginPage() {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showSuccessLoader, setShowSuccessLoader] = useState(false);
-  const [firstWeek] = useState(() => createFirstWeekSnapshot());
+  const [dailyPulse, setDailyPulse] = useState({
+    count: 24,
+    heights: [
+      34,
+      52,
+      48,
+      76,
+      62,
+      72
+    ]
+  });
+  useEffect(() => {
+    setDailyPulse(createDailyPulseSnapshot());
+  }, []);
   useEffect(() => {
     if (!showSuccessLoader) return;
     const timer = window.setTimeout(() => {
       startTransition(() => {
-        navigate({ to: "/login" });
+        navigate({ to: "/dashboard" });
       });
     }, LOADER_DURATION_MS);
     return () => window.clearTimeout(timer);
@@ -49,16 +60,11 @@ function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
     setLoading(true);
     try {
-      const result = await signupFn({ data: {
+      const result = await loginFn({ data: {
         email,
-        password,
-        fullName
+        password
       } });
       if (result.error) {
         setError(result.error);
@@ -94,9 +100,9 @@ function SignupPage() {
                 children: "ProVisioners"
               })] })]
             }), /* @__PURE__ */ jsx(Link, {
-              to: "/login",
+              to: "/signup",
               className: "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900",
-              children: "Log in"
+              children: "Sign up"
             })]
           }), /* @__PURE__ */ jsxs("div", {
             className: "rounded-[30px] border border-white/80 bg-white/95 p-8 shadow-[0_28px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-10",
@@ -106,15 +112,15 @@ function SignupPage() {
                 children: [
                   /* @__PURE__ */ jsx("div", {
                     className: "mb-4 inline-flex rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-700",
-                    children: "Signup"
+                    children: "Login"
                   }),
                   /* @__PURE__ */ jsx("h1", {
                     className: "text-4xl font-semibold tracking-[-0.04em] text-slate-950",
-                    children: "Create your workspace access"
+                    children: "Welcome back"
                   }),
                   /* @__PURE__ */ jsx("p", {
                     className: "mt-3 text-base leading-7 text-slate-500",
-                    children: "Set up your ProVisioners account to manage projects, approvals, and delivery from one focused workspace."
+                    children: "Sign in to manage projects, approvals, and delivery across the ProVisioners workspace."
                   })
                 ]
               }),
@@ -126,25 +132,6 @@ function SignupPage() {
                 onSubmit: handleSubmit,
                 className: "space-y-5",
                 children: [
-                  /* @__PURE__ */ jsxs("label", {
-                    className: "block",
-                    children: [/* @__PURE__ */ jsx("span", {
-                      className: "mb-2 block text-sm font-medium text-slate-600",
-                      children: "Full name"
-                    }), /* @__PURE__ */ jsxs("span", {
-                      className: "relative block",
-                      children: [/* @__PURE__ */ jsx(User, { className: "pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" }), /* @__PURE__ */ jsx("input", {
-                        id: "fullName",
-                        type: "text",
-                        autoComplete: "name",
-                        value: fullName,
-                        onChange: (e) => setFullName(e.target.value),
-                        placeholder: "John Doe",
-                        required: true,
-                        className: "h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100"
-                      })]
-                    })]
-                  }),
                   /* @__PURE__ */ jsxs("label", {
                     className: "block",
                     children: [/* @__PURE__ */ jsx("span", {
@@ -173,37 +160,17 @@ function SignupPage() {
                         children: "Password"
                       }), /* @__PURE__ */ jsx("span", {
                         className: "text-sm font-medium text-slate-400",
-                        children: "Minimum 6 characters"
+                        children: "Secure access"
                       })]
                     }), /* @__PURE__ */ jsxs("span", {
                       className: "relative block",
                       children: [/* @__PURE__ */ jsx(Lock, { className: "pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" }), /* @__PURE__ */ jsx("input", {
                         id: "password",
                         type: "password",
-                        autoComplete: "new-password",
+                        autoComplete: "current-password",
                         value: password,
                         onChange: (e) => setPassword(e.target.value),
-                        placeholder: "Create a password",
-                        required: true,
-                        minLength: 6,
-                        className: "h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100"
-                      })]
-                    })]
-                  }),
-                  /* @__PURE__ */ jsxs("label", {
-                    className: "block",
-                    children: [/* @__PURE__ */ jsx("span", {
-                      className: "mb-2 block text-sm font-medium text-slate-600",
-                      children: "Confirm password"
-                    }), /* @__PURE__ */ jsxs("span", {
-                      className: "relative block",
-                      children: [/* @__PURE__ */ jsx(Lock, { className: "pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" }), /* @__PURE__ */ jsx("input", {
-                        id: "confirmPassword",
-                        type: "password",
-                        autoComplete: "new-password",
-                        value: confirmPassword,
-                        onChange: (e) => setConfirmPassword(e.target.value),
-                        placeholder: "Repeat your password",
+                        placeholder: "Enter your password",
                         required: true,
                         minLength: 6,
                         className: "h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100"
@@ -214,23 +181,23 @@ function SignupPage() {
                     type: "submit",
                     disabled: loading || showSuccessLoader,
                     className: "flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#7c3aed_0%,#ec4899_100%)] px-4 text-base font-semibold text-white shadow-[0_18px_34px_rgba(168,85,247,0.32)] transition hover:scale-[1.01] hover:shadow-[0_20px_38px_rgba(168,85,247,0.38)] disabled:cursor-not-allowed disabled:opacity-70",
-                    children: [loading ? /* @__PURE__ */ jsx("span", { className: "h-5 w-5 rounded-full border-2 border-white/30 border-t-white animate-spin" }) : /* @__PURE__ */ jsx(UserPlus, { className: "h-5 w-5" }), showSuccessLoader ? "Preparing sign in..." : loading ? "Creating account..." : "Create account"]
+                    children: [loading ? /* @__PURE__ */ jsx("span", { className: "h-5 w-5 rounded-full border-2 border-white/30 border-t-white animate-spin" }) : /* @__PURE__ */ jsx(LogIn, { className: "h-5 w-5" }), showSuccessLoader ? "Preparing workspace..." : loading ? "Signing in..." : "Log in"]
                   })
                 ]
               }),
               /* @__PURE__ */ jsxs("div", {
                 className: "mt-8 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-500",
-                children: [/* @__PURE__ */ jsx("div", { className: "mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400" }), /* @__PURE__ */ jsx("p", { children: "Secure account creation with team-ready access controls and workspace onboarding." })]
+                children: [/* @__PURE__ */ jsx("div", { className: "mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400" }), /* @__PURE__ */ jsx("p", { children: "Protected workspace access with secure session management and project visibility controls." })]
               }),
               /* @__PURE__ */ jsxs("p", {
                 className: "mt-6 text-center text-sm text-slate-500",
                 children: [
-                  "Already have an account?",
+                  "New to ProVisioners?",
                   " ",
                   /* @__PURE__ */ jsx(Link, {
-                    to: "/login",
+                    to: "/signup",
                     className: "font-semibold text-violet-600 transition hover:text-violet-700",
-                    children: "Sign in"
+                    children: "Create an account"
                   })
                 ]
               })
@@ -249,15 +216,15 @@ function SignupPage() {
             children: [
               /* @__PURE__ */ jsxs("div", {
                 className: "mb-8 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm text-white/80 backdrop-blur-md",
-                children: [/* @__PURE__ */ jsx("span", { className: "h-2 w-2 rounded-full bg-emerald-400" }), "One place for briefs, delivery, and approvals"]
+                children: [/* @__PURE__ */ jsx("span", { className: "h-2 w-2 rounded-full bg-emerald-400" }), "Teams stay aligned in one command center"]
               }),
               /* @__PURE__ */ jsx("h2", {
                 className: "max-w-[10ch] text-5xl font-semibold leading-[1.02] tracking-[-0.05em] text-white xl:text-6xl",
-                children: "Start with structure, then move fast."
+                children: "Run every project with calm control."
               }),
               /* @__PURE__ */ jsx("p", {
                 className: "mt-6 max-w-xl text-lg leading-8 text-white/68",
-                children: "Give every project a clear home from day one with a ClickUp-inspired workspace tailored for ProVisioners teams."
+                children: "A ClickUp-inspired workspace for briefs, timelines, approvals, and progress tracking without scattered updates."
               }),
               /* @__PURE__ */ jsxs("div", {
                 className: "mt-12 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]",
@@ -267,31 +234,31 @@ function SignupPage() {
                     className: "mb-5 flex items-center justify-between",
                     children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", {
                       className: "text-xs uppercase tracking-[0.24em] text-white/45",
-                      children: "Workspace Setup"
+                      children: "Delivery Board"
                     }), /* @__PURE__ */ jsx("p", {
                       className: "mt-1 text-xl font-semibold text-white",
-                      children: "Team Launch"
+                      children: "Campaign Launch"
                     })] }), /* @__PURE__ */ jsx("div", {
-                      className: "rounded-full bg-cyan-400/18 px-3 py-1 text-xs font-semibold text-cyan-200",
-                      children: "Guided"
+                      className: "rounded-full bg-emerald-400/18 px-3 py-1 text-xs font-semibold text-emerald-200",
+                      children: "On track"
                     })]
                   }), /* @__PURE__ */ jsx("div", {
                     className: "space-y-3",
                     children: [
                       [
-                        "Account created",
-                        "100%",
-                        "bg-emerald-400"
-                      ],
-                      [
-                        "Projects configured",
-                        "72%",
+                        "Content Review",
+                        "84%",
                         "bg-violet-400"
                       ],
                       [
-                        "Team invited",
-                        "48%",
+                        "Client Approval",
+                        "63%",
                         "bg-fuchsia-400"
+                      ],
+                      [
+                        "QA Handoff",
+                        "91%",
+                        "bg-cyan-400"
                       ]
                     ].map(([label, value, accent], index) => /* @__PURE__ */ jsxs("div", {
                       className: "rounded-2xl border border-white/8 bg-slate-950/25 p-4",
@@ -323,21 +290,21 @@ function SignupPage() {
                     children: [
                       /* @__PURE__ */ jsx("p", {
                         className: "text-xs uppercase tracking-[0.24em] text-white/45",
-                        children: "First Week"
+                        children: "Daily Pulse"
                       }),
                       /* @__PURE__ */ jsxs("div", {
                         className: "mt-4 flex items-end gap-3",
                         children: [/* @__PURE__ */ jsx("span", {
                           className: "text-5xl font-semibold tracking-[-0.05em]",
-                          children: firstWeek.multiplier
+                          children: dailyPulse.count
                         }), /* @__PURE__ */ jsx("span", {
                           className: "pb-2 text-sm text-emerald-200",
-                          children: "faster onboarding flow"
+                          children: "tasks cleared today"
                         })]
                       }),
                       /* @__PURE__ */ jsx("div", {
                         className: "mt-5 flex gap-2",
-                        children: firstWeek.heights.map((height, index) => /* @__PURE__ */ jsx("div", {
+                        children: dailyPulse.heights.map((height, index) => /* @__PURE__ */ jsx("div", {
                           className: "flex-1 rounded-full bg-white/8 p-1",
                           children: /* @__PURE__ */ jsx("div", {
                             className: `provisioners-column-bar w-full rounded-full ${index % 2 === 0 ? "bg-violet-400" : "bg-fuchsia-400"}`,
@@ -354,15 +321,15 @@ function SignupPage() {
                     children: [
                       /* @__PURE__ */ jsx("p", {
                         className: "text-xs uppercase tracking-[0.24em] text-white/45",
-                        children: "Included Views"
+                        children: "Core Stack"
                       }),
                       /* @__PURE__ */ jsx("div", {
                         className: "mt-4 flex flex-wrap gap-2",
                         children: [
-                          "Boards",
-                          "Lists",
-                          "Timeline",
-                          "Reports"
+                          "Projects",
+                          "Approvals",
+                          "Timelines",
+                          "Assets"
                         ].map((item) => /* @__PURE__ */ jsx("span", {
                           className: "rounded-full border border-white/10 bg-white/8 px-3 py-2 text-sm text-white/80",
                           children: item
@@ -372,10 +339,10 @@ function SignupPage() {
                         className: "mt-5 rounded-2xl border border-white/10 bg-white/8 p-4",
                         children: [/* @__PURE__ */ jsxs("div", {
                           className: "flex items-center justify-between text-sm text-white/80",
-                          children: [/* @__PURE__ */ jsx("span", { children: "Setup completion" }), /* @__PURE__ */ jsx("span", { children: "82%" })]
+                          children: [/* @__PURE__ */ jsx("span", { children: "Workspace coverage" }), /* @__PURE__ */ jsx("span", { children: "94%" })]
                         }), /* @__PURE__ */ jsx("div", {
                           className: "mt-3 h-2 rounded-full bg-white/10",
-                          children: /* @__PURE__ */ jsx("div", { className: "h-full w-[82%] rounded-full bg-[linear-gradient(90deg,#8b5cf6_0%,#ec4899_100%)]" })
+                          children: /* @__PURE__ */ jsx("div", { className: "h-full w-[94%] rounded-full bg-[linear-gradient(90deg,#8b5cf6_0%,#ec4899_100%)]" })
                         })]
                       })
                     ]
@@ -391,11 +358,11 @@ function SignupPage() {
         ]
       })]
     })
-  }), showSuccessLoader && /* @__PURE__ */ jsx(SignupSuccessLoader, {})] });
+  }), showSuccessLoader && /* @__PURE__ */ jsx(SuccessLoader, {})] });
 }
-function SignupSuccessLoader() {
+function SuccessLoader() {
   const progress = useRandomLoaderProgress();
-  const stageLabel = progress < 24 ? "Creating account" : progress < 52 ? "Configuring workspace" : progress < 82 ? "Preparing sign in" : progress < 100 ? "Finalizing access" : "Ready";
+  const stageLabel = progress < 24 ? "Checking access" : progress < 52 ? "Syncing workspace" : progress < 82 ? "Loading active projects" : progress < 100 ? "Finalizing session" : "Ready";
   return /* @__PURE__ */ jsxs("div", {
     className: "fixed inset-0 z-50 overflow-hidden bg-[#070b17] text-white",
     children: [
@@ -411,15 +378,15 @@ function SignupSuccessLoader() {
               children: [
                 /* @__PURE__ */ jsx("p", {
                   className: "text-sm font-semibold uppercase tracking-[0.34em] text-white/50",
-                  children: "Account created"
+                  children: "Access granted"
                 }),
                 /* @__PURE__ */ jsx("h2", {
                   className: "mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl",
-                  children: "Welcome to ProVisioners"
+                  children: "Launching ProVisioners"
                 }),
                 /* @__PURE__ */ jsx("p", {
                   className: "mt-3 text-base text-white/60",
-                  children: "Finalizing your account and preparing the sign-in flow."
+                  children: "Preparing your workspace and syncing the latest project context."
                 })
               ]
             }),
@@ -427,10 +394,10 @@ function SignupSuccessLoader() {
               viewBox: "0 0 920 300",
               className: "mx-auto w-full max-w-3xl overflow-visible",
               role: "img",
-              "aria-label": "ProVisioners signup animation",
+              "aria-label": "ProVisioners loading animation",
               children: [
                 /* @__PURE__ */ jsxs("defs", { children: [/* @__PURE__ */ jsxs("linearGradient", {
-                  id: "provisioners-signup-gradient",
+                  id: "provisioners-loader-gradient",
                   x1: "0%",
                   y1: "0%",
                   x2: "100%",
@@ -450,7 +417,7 @@ function SignupSuccessLoader() {
                     })
                   ]
                 }), /* @__PURE__ */ jsxs("filter", {
-                  id: "provisioners-signup-glow",
+                  id: "provisioners-loader-glow",
                   x: "-50%",
                   y: "-50%",
                   width: "200%",
@@ -461,10 +428,10 @@ function SignupSuccessLoader() {
                   }), /* @__PURE__ */ jsxs("feMerge", { children: [/* @__PURE__ */ jsx("feMergeNode", { in: "coloredBlur" }), /* @__PURE__ */ jsx("feMergeNode", { in: "SourceGraphic" })] })]
                 })] }),
                 /* @__PURE__ */ jsx("path", {
-                  id: "provisioners-signup-track",
-                  d: "M78 90C178 18 280 33 380 92C481 152 576 214 700 182C778 162 842 115 879 84",
+                  id: "provisioners-loader-track",
+                  d: "M78 86C153 22 253 25 353 78C466 137 568 213 699 184C777 167 840 120 879 88",
                   fill: "none",
-                  stroke: "url(#provisioners-signup-gradient)",
+                  stroke: "url(#provisioners-loader-gradient)",
                   strokeWidth: "4",
                   strokeLinecap: "round",
                   className: "provisioners-loader-track"
@@ -472,23 +439,23 @@ function SignupSuccessLoader() {
                 /* @__PURE__ */ jsx("circle", {
                   r: "7",
                   fill: "#fff",
-                  filter: "url(#provisioners-signup-glow)",
+                  filter: "url(#provisioners-loader-glow)",
                   className: "provisioners-loader-dot",
                   children: /* @__PURE__ */ jsx("animateMotion", {
                     dur: "1.9s",
                     repeatCount: "indefinite",
                     rotate: "auto",
-                    children: /* @__PURE__ */ jsx("mpath", { href: "#provisioners-signup-track" })
+                    children: /* @__PURE__ */ jsx("mpath", { href: "#provisioners-loader-track" })
                   })
                 }),
                 /* @__PURE__ */ jsx("circle", {
                   r: "18",
-                  fill: "url(#provisioners-signup-gradient)",
+                  fill: "url(#provisioners-loader-gradient)",
                   opacity: "0.22",
                   children: /* @__PURE__ */ jsx("animateMotion", {
                     dur: "1.9s",
                     repeatCount: "indefinite",
-                    children: /* @__PURE__ */ jsx("mpath", { href: "#provisioners-signup-track" })
+                    children: /* @__PURE__ */ jsx("mpath", { href: "#provisioners-loader-track" })
                   })
                 }),
                 /* @__PURE__ */ jsx("text", {
@@ -497,7 +464,7 @@ function SignupSuccessLoader() {
                   textAnchor: "middle",
                   className: "provisioners-loader-word-outline",
                   fill: "none",
-                  stroke: "url(#provisioners-signup-gradient)",
+                  stroke: "url(#provisioners-loader-gradient)",
                   strokeWidth: "2",
                   paintOrder: "stroke",
                   children: "ProVisioners"
@@ -507,13 +474,13 @@ function SignupSuccessLoader() {
                   y: "182",
                   textAnchor: "middle",
                   className: "provisioners-loader-word-fill",
-                  fill: "url(#provisioners-signup-gradient)",
+                  fill: "url(#provisioners-loader-gradient)",
                   children: "ProVisioners"
                 }),
                 /* @__PURE__ */ jsx("path", {
                   d: "M248 228H672",
                   fill: "none",
-                  stroke: "url(#provisioners-signup-gradient)",
+                  stroke: "url(#provisioners-loader-gradient)",
                   strokeLinecap: "round",
                   strokeWidth: "3",
                   className: "provisioners-loader-underline"
@@ -576,23 +543,23 @@ function createLoaderMilestones() {
     },
     {
       at: randomBetween(180, 260),
-      value: randomBetween(7, 13)
+      value: randomBetween(8, 14)
     },
     {
       at: randomBetween(520, 760),
-      value: randomBetween(22, 35)
+      value: randomBetween(24, 37)
     },
     {
       at: randomBetween(980, 1240),
-      value: randomBetween(45, 59)
+      value: randomBetween(46, 61)
     },
     {
       at: randomBetween(1420, 1710),
-      value: randomBetween(66, 80)
+      value: randomBetween(68, 82)
     },
     {
       at: randomBetween(1880, 2120),
-      value: randomBetween(87, 95)
+      value: randomBetween(88, 96)
     },
     {
       at: LOADER_DURATION_MS,
@@ -600,24 +567,24 @@ function createLoaderMilestones() {
     }
   ];
 }
-function createFirstWeekSnapshot() {
+function createDailyPulseSnapshot() {
   const randomBetween = (min, max) => Math.round(min + Math.random() * (max - min));
   return {
-    multiplier: `${(2.6 + Math.random() * 1.6).toFixed(1)}x`,
+    count: randomBetween(18, 36),
     heights: Array.from({ length: 6 }, (_, index) => {
       var _a;
       const base = (_a = [
-        30,
-        46,
-        64,
-        82,
-        60,
-        74
-      ][index]) != null ? _a : 52;
-      return Math.max(22, Math.min(96, base + randomBetween(-10, 12)));
+        34,
+        52,
+        48,
+        76,
+        62,
+        72
+      ][index]) != null ? _a : 48;
+      return Math.max(24, Math.min(98, base + randomBetween(-10, 12)));
     })
   };
 }
 
-export { SignupPage as component };
-//# sourceMappingURL=signup-DvWFwobi.mjs.map
+export { LoginPage as component };
+//# sourceMappingURL=login-D62oOzwX.mjs.map

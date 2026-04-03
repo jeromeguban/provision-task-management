@@ -1,4 +1,4 @@
-import { x as createServerRpc, y as createServerFn, z as getSupabaseServerClient, A as prisma } from './routeTree.gen-ZPSO4hcL.mjs';
+import { x as createServerRpc, y as createServerFn, A as getSupabaseServerClient, B as prisma } from './routeTree.gen-B1ahvekk.mjs';
 import '@tanstack/react-router';
 import 'react/jsx-runtime';
 import '@tanstack/react-router/ssr/server';
@@ -76,4 +76,4 @@ var getDashboardStats = createServerFn({ method: "GET" }).handler(getDashboardSt
 });
 
 export { getDashboardStats_createServerFn_handler };
-//# sourceMappingURL=dashboard-B55XJURs.mjs.map
+//# sourceMappingURL=dashboard-sO_mGrYB.mjs.map

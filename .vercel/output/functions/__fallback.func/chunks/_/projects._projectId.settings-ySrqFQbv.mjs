@@ -1,4 +1,4 @@
-import { p as Route, q as updateProject, r as addProjectMember, t as getProject, v as removeProjectMember, w as deleteProject } from './routeTree.gen-ZPSO4hcL.mjs';
+import { p as Route, q as updateProject, r as addProjectMember, t as getProject, v as removeProjectMember, w as deleteProject } from './routeTree.gen-B1ahvekk.mjs';
 import { A as Avatar } from './Avatar-JXfAfazU.mjs';
 import { C as Card } from './Card-jDSerDDM.mjs';
 import { B as Badge } from './Badge-Dd7uaF2k.mjs';
@@ -232,4 +232,4 @@ function ProjectSettingsPage() {
 }
 
 export { ProjectSettingsPage as component };
-//# sourceMappingURL=projects._projectId.settings-CXsAQwY8.mjs.map
+//# sourceMappingURL=projects._projectId.settings-ySrqFQbv.mjs.map

@@ -1,4 +1,4 @@
-import { x as createServerRpc, y as createServerFn, A as prisma, z as getSupabaseServerClient } from './routeTree.gen-ZPSO4hcL.mjs';
+import { x as createServerRpc, y as createServerFn, B as prisma, A as getSupabaseServerClient } from './routeTree.gen-B1ahvekk.mjs';
 import { ProjectRole } from '@prisma/client';
 import '@tanstack/react-router';
 import 'react/jsx-runtime';
@@ -159,4 +159,4 @@ var removeProjectMember = createServerFn({ method: "POST" }).validator((data) =>
 });
 
 export { addProjectMember_createServerFn_handler, createProject_createServerFn_handler, deleteProject_createServerFn_handler, getProject_createServerFn_handler, getUserProjects_createServerFn_handler, removeProjectMember_createServerFn_handler, updateProject_createServerFn_handler };
-//# sourceMappingURL=projects-B2l6UjNm.mjs.map
+//# sourceMappingURL=projects-r51iCdeP.mjs.map

@@ -1,4 +1,4 @@
-import { x as createServerRpc, y as createServerFn, A as prisma, z as getSupabaseServerClient } from './routeTree.gen-ZPSO4hcL.mjs';
+import { x as createServerRpc, y as createServerFn, B as prisma, A as getSupabaseServerClient } from './routeTree.gen-B1ahvekk.mjs';
 import '@tanstack/react-router';
 import 'react/jsx-runtime';
 import '@tanstack/react-router/ssr/server';
@@ -259,4 +259,4 @@ var deleteComment = createServerFn({ method: "POST" }).validator((data) => data)
 });
 
 export { addComment_createServerFn_handler, createTask_createServerFn_handler, deleteComment_createServerFn_handler, deleteTask_createServerFn_handler, getProjectMembers_createServerFn_handler, getTask_createServerFn_handler, getTasksByProject_createServerFn_handler, moveTask_createServerFn_handler, updateTask_createServerFn_handler };
-//# sourceMappingURL=tasks-Ciye_Yt9.mjs.map
+//# sourceMappingURL=tasks-BIliZYZO.mjs.map

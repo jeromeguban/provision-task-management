@@ -3795,11 +3795,11 @@ var VIRTUAL_MODULES = {
 async function loadVirtualModule(id) {
   switch (id) {
     case VIRTUAL_MODULES.routeTree:
-      return await Promise.resolve().then(function () { return routeTree_genZPSO4hcL; });
+      return await Promise.resolve().then(function () { return routeTree_genB1ahvekk; });
     case VIRTUAL_MODULES.startManifest:
       return await import('./_tanstack-start-manifest_v-BE2sDCNP.mjs');
     case VIRTUAL_MODULES.serverFnManifest:
-      return await import('./_tanstack-start-server-fn-manifest_v-JVR0Bj7A.mjs');
+      return await import('./_tanstack-start-server-fn-manifest_v-BSKmUUW_.mjs');
     default:
       throw new Error(`Unknown virtual module: ${id}`);
   }
@@ -4386,6 +4386,10 @@ function requireServerEnv(name) {
   if (!value) throw new Error(`Missing required server environment variable: ${name}`);
   return value;
 }
+function hasServerEnv(name) {
+  var _a;
+  return Boolean((_a = process.env[name]) == null ? void 0 : _a.trim());
+}
 function getDatabaseUrl() {
   const databaseUrl = requireServerEnv("DATABASE_URL");
   if (databaseUrl.includes("[YOUR-PASSWORD]")) throw new Error("DATABASE_URL still contains the placeholder [YOUR-PASSWORD]. Replace it with your real database password.");
@@ -4396,6 +4400,9 @@ function getSupabaseServerEnv() {
     supabaseUrl: requireServerEnv("SUPABASE_URL"),
     supabaseAnonKey: requireServerEnv("SUPABASE_ANON_KEY")
   };
+}
+function hasSupabaseServerEnv() {
+  return hasServerEnv("SUPABASE_URL") && hasServerEnv("SUPABASE_ANON_KEY");
 }
 var { parseCookies: parseCookies$1, setCookie: setCookie$1, setHeaders: setHeaders$1 } = server_exports;
 function getSupabaseServerClient() {
@@ -4514,6 +4521,7 @@ var fetchUser_createServerFn_handler = createServerRpc("src_server_auth_ts--fetc
   return fetchUser.__executeServer(opts, signal);
 });
 var fetchUser = createServerFn({ method: "GET" }).handler(fetchUser_createServerFn_handler, async () => {
+  if (!hasSupabaseServerEnv()) return null;
   const { data: { user: authUser } } = await getSupabaseServerClient().auth.getUser();
   if (!authUser) return null;
   return await syncUserFromAuth(authUser);
@@ -4522,6 +4530,7 @@ var loginFn_createServerFn_handler = createServerRpc("src_server_auth_ts--loginF
   return loginFn.__executeServer(opts, signal);
 });
 var loginFn = createServerFn({ method: "POST" }).validator((data) => data).handler(loginFn_createServerFn_handler, async ({ data }) => {
+  if (!hasSupabaseServerEnv()) return { error: "Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY." };
   const { error } = await getSupabaseServerClient().auth.signInWithPassword({
     email: data.email,
     password: data.password
@@ -4533,6 +4542,7 @@ var signupFn_createServerFn_handler = createServerRpc("src_server_auth_ts--signu
   return signupFn.__executeServer(opts, signal);
 });
 var signupFn = createServerFn({ method: "POST" }).validator((data) => data).handler(signupFn_createServerFn_handler, async ({ data }) => {
+  if (!hasSupabaseServerEnv()) return { error: "Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY." };
   const { error } = await getSupabaseServerClient().auth.signUp({
     email: data.email,
     password: data.password,
@@ -4545,6 +4555,7 @@ var logoutFn_createServerFn_handler = createServerRpc("src_server_auth_ts--logou
   return logoutFn.__executeServer(opts, signal);
 });
 var logoutFn = createServerFn({ method: "POST" }).handler(logoutFn_createServerFn_handler, async () => {
+  if (!hasSupabaseServerEnv()) return { success: true };
   await getSupabaseServerClient().auth.signOut();
   return { success: true };
 });
@@ -4599,7 +4610,7 @@ var getDashboardStats = createServerFn({ method: "GET" }).handler(getDashboardSt
     dueSoonTasks
   };
 });
-var $$splitComponentImporter$9 = () => import('./dashboard-BWwcVDVW.mjs');
+var $$splitComponentImporter$9 = () => import('./dashboard-BD6CVBzI.mjs');
 var Route$b = createFileRoute("/_authed/dashboard")({
   loader: () => getDashboardStats(),
   component: lazyRouteComponent($$splitComponentImporter$9, "component")
@@ -4739,13 +4750,13 @@ var removeProjectMember = createServerFn({ method: "POST" }).validator((data) =>
   return { success: true };
 });
 
-var $$splitComponentImporter$8 = () => import('./projects.index-CkK-jzAN.mjs');
+var $$splitComponentImporter$8 = () => import('./projects.index-BLqkfE_C.mjs');
 var Route$a = createFileRoute("/_authed/projects/")({
   loader: () => getUserProjects(),
   component: lazyRouteComponent($$splitComponentImporter$8, "component")
 });
 
-var $$splitComponentImporter$7 = () => import('./projects._projectId-Bnt1VQT-.mjs');
+var $$splitComponentImporter$7 = () => import('./projects._projectId-D7dYej0Z.mjs');
 var Route$9 = createFileRoute("/_authed/projects/$projectId")({
   loader: ({ params }) => getProject({ data: { projectId: params.projectId } }),
   component: lazyRouteComponent($$splitComponentImporter$7, "component")
@@ -4984,13 +4995,13 @@ var deleteComment = createServerFn({ method: "POST" }).validator((data) => data)
   await prisma.taskComment.delete({ where: { id: data.commentId } });
   return { success: true };
 });
-var $$splitComponentImporter$6 = () => import('./projects._projectId.index-BikboFA3.mjs');
+var $$splitComponentImporter$6 = () => import('./projects._projectId.index-COuEbFW1.mjs');
 var Route$8 = createFileRoute("/_authed/projects/$projectId/")({
   loader: ({ params }) => getTasksByProject({ data: { projectId: params.projectId } }),
   component: lazyRouteComponent($$splitComponentImporter$6, "component")
 });
 
-var $$splitComponentImporter$5 = () => import('./projects._projectId.settings-CXsAQwY8.mjs');
+var $$splitComponentImporter$5 = () => import('./projects._projectId.settings-ySrqFQbv.mjs');
 var Route$7 = createFileRoute("/_authed/projects/$projectId/settings")({ component: lazyRouteComponent($$splitComponentImporter$5, "component") });
 
 var app_default = "/assets/app-fCCDN7CO.css";
@@ -5023,21 +5034,21 @@ function RootComponent() {
     children: [/* @__PURE__ */ jsxs("head", { children: [/* @__PURE__ */ jsx(HeadContent, {}), /* @__PURE__ */ jsx("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()` } })] }), /* @__PURE__ */ jsxs("body", { children: [/* @__PURE__ */ jsx(Outlet, {}), /* @__PURE__ */ jsx(Scripts, {})] })]
   });
 }
-var $$splitComponentImporter$4 = () => import('./signup-DvWFwobi.mjs');
+var $$splitComponentImporter$4 = () => import('./signup-Buaug__b.mjs');
 var Route$5 = createFileRoute("/signup")({
   beforeLoad: ({ context }) => {
     if (context.user) throw redirect({ to: "/dashboard" });
   },
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import('./login-Calg2pxF.mjs');
+var $$splitComponentImporter$3 = () => import('./login-D62oOzwX.mjs');
 var Route$4 = createFileRoute("/login")({
   beforeLoad: ({ context }) => {
     if (context.user) throw redirect({ to: "/dashboard" });
   },
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import('./_authed-Csat12Dk.mjs');
+var $$splitComponentImporter$2 = () => import('./_authed-DEHHDHqU.mjs');
 var Route$3 = createFileRoute("/_authed")({
   beforeLoad: ({ context }) => {
     if (!context.user) throw redirect({ to: "/login" });
@@ -5051,7 +5062,7 @@ var Route$2 = createFileRoute("/")({ beforeLoad: ({ context }) => {
 } });
 var $$splitComponentImporter$1 = () => import('./projects-B_SxLDT2.mjs');
 var Route$1 = createFileRoute("/_authed/projects")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import('./projects.new-DMXpzwa6.mjs');
+var $$splitComponentImporter = () => import('./projects.new-BSe0qtMo.mjs');
 var Route = createFileRoute("/_authed/projects/new")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 var SignupRoute = Route$5.update({
   id: "/signup",
@@ -5149,10 +5160,10 @@ const ssr = /*#__PURE__*/Object.freeze({
   default: server_entry_default
 });
 
-const routeTree_genZPSO4hcL = /*#__PURE__*/Object.freeze({
+const routeTree_genB1ahvekk = /*#__PURE__*/Object.freeze({
   __proto__: null,
   routeTree: routeTree
 });
 
-export { prisma as A, ssr as B, Route$b as R, logoutFn as a, Route$a as b, createProject as c, Route$9 as d, Route$8 as e, getTasksByProject as f, getUserProjects as g, getTask as h, getProjectMembers as i, createTask as j, deleteTask as k, loginFn as l, moveTask as m, deleteComment as n, addComment as o, Route$7 as p, updateProject as q, addProjectMember as r, signupFn as s, getProject as t, updateTask as u, removeProjectMember as v, deleteProject as w, createServerRpc as x, createServerFn as y, getSupabaseServerClient as z };
-//# sourceMappingURL=routeTree.gen-ZPSO4hcL.mjs.map
+export { getSupabaseServerClient as A, prisma as B, ssr as C, Route$b as R, logoutFn as a, Route$a as b, createProject as c, Route$9 as d, Route$8 as e, getTasksByProject as f, getUserProjects as g, getTask as h, getProjectMembers as i, createTask as j, deleteTask as k, loginFn as l, moveTask as m, deleteComment as n, addComment as o, Route$7 as p, updateProject as q, addProjectMember as r, signupFn as s, getProject as t, updateTask as u, removeProjectMember as v, deleteProject as w, createServerRpc as x, createServerFn as y, hasSupabaseServerEnv as z };
+//# sourceMappingURL=routeTree.gen-B1ahvekk.mjs.map

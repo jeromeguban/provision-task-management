@@ -1,4 +1,4 @@
-import { e as Route, f as getTasksByProject, m as moveTask, h as getTask, i as getProjectMembers, j as createTask, u as updateTask, k as deleteTask, n as deleteComment, o as addComment } from './routeTree.gen-ZPSO4hcL.mjs';
+import { e as Route, f as getTasksByProject, m as moveTask, h as getTask, i as getProjectMembers, j as createTask, u as updateTask, k as deleteTask, n as deleteComment, o as addComment } from './routeTree.gen-B1ahvekk.mjs';
 import { A as Avatar } from './Avatar-JXfAfazU.mjs';
 import { C as Card } from './Card-jDSerDDM.mjs';
 import { B as Badge } from './Badge-Dd7uaF2k.mjs';
@@ -2278,4 +2278,4 @@ function ProjectBoardPage() {
 }
 
 export { ProjectBoardPage as component };
-//# sourceMappingURL=projects._projectId.index-BikboFA3.mjs.map
+//# sourceMappingURL=projects._projectId.index-COuEbFW1.mjs.map

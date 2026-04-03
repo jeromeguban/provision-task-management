@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { prisma } from '@/lib/prisma'
+import { hasSupabaseServerEnv } from '@/lib/server-env'
 import { ProjectRole } from '@prisma/client'
 
 const projectRoleRank: Record<ProjectRole, number> = {
@@ -136,6 +137,10 @@ async function syncUserFromAuth(authUser: {
 }
 
 export const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
+  if (!hasSupabaseServerEnv()) {
+    return null
+  }
+
   const supabase = getSupabaseServerClient()
   const {
     data: { user: authUser },
@@ -153,6 +158,13 @@ export const loginFn = createServerFn({ method: 'POST' })
     (data: { email: string; password: string }) => data,
   )
   .handler(async ({ data }) => {
+    if (!hasSupabaseServerEnv()) {
+      return {
+        error:
+          'Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY.',
+      }
+    }
+
     const supabase = getSupabaseServerClient()
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,
@@ -171,6 +183,13 @@ export const signupFn = createServerFn({ method: 'POST' })
     (data: { email: string; password: string; fullName: string }) => data,
   )
   .handler(async ({ data }) => {
+    if (!hasSupabaseServerEnv()) {
+      return {
+        error:
+          'Authentication is not configured on the server. Set SUPABASE_URL and SUPABASE_ANON_KEY.',
+      }
+    }
+
     const supabase = getSupabaseServerClient()
     const { error } = await supabase.auth.signUp({
       email: data.email,
@@ -188,6 +207,10 @@ export const signupFn = createServerFn({ method: 'POST' })
   })
 
 export const logoutFn = createServerFn({ method: 'POST' }).handler(async () => {
+  if (!hasSupabaseServerEnv()) {
+    return { success: true }
+  }
+
   const supabase = getSupabaseServerClient()
   await supabase.auth.signOut()
   return { success: true }

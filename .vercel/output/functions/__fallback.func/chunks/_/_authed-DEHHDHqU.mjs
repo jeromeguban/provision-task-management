@@ -1,4 +1,4 @@
-import { g as getUserProjects, a as logoutFn } from './routeTree.gen-ZPSO4hcL.mjs';
+import { g as getUserProjects, a as logoutFn } from './routeTree.gen-B1ahvekk.mjs';
 import { A as Avatar } from './Avatar-JXfAfazU.mjs';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { Outlet, useParams, Link, useRouteContext, useNavigate } from '@tanstack/react-router';
@@ -246,4 +246,4 @@ function AuthedLayout() {
 }
 
 export { AuthedLayout as component };
-//# sourceMappingURL=_authed-Csat12Dk.mjs.map
+//# sourceMappingURL=_authed-DEHHDHqU.mjs.map

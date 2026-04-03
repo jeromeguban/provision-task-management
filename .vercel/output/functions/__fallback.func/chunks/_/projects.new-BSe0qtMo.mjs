@@ -1,4 +1,4 @@
-import { c as createProject } from './routeTree.gen-ZPSO4hcL.mjs';
+import { c as createProject } from './routeTree.gen-B1ahvekk.mjs';
 import { C as Card } from './Card-jDSerDDM.mjs';
 import { B as Button } from './Button-B2JAha6z.mjs';
 import { I as Input } from './Input-X3bnvCFm.mjs';
@@ -138,4 +138,4 @@ function NewProjectPage() {
 }
 
 export { NewProjectPage as component };
-//# sourceMappingURL=projects.new-DMXpzwa6.mjs.map
+//# sourceMappingURL=projects.new-BSe0qtMo.mjs.map
