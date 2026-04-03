@@ -2,6 +2,7 @@ import {
   Outlet,
   HeadContent,
   Scripts,
+  Link,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import type { User } from "@prisma/client";
@@ -21,6 +22,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
@@ -39,6 +41,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     return { user };
   },
   component: RootComponent,
+  notFoundComponent: NotFoundComponent,
 });
 
 function RootComponent() {
@@ -55,6 +58,40 @@ function RootComponent() {
       </head>
       <body>
         <Outlet />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+function NotFoundComponent() {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-950 px-6 text-center text-slate-100">
+          <p className="text-sm uppercase tracking-[0.3em] text-slate-400">404</p>
+          <h1 className="text-3xl font-semibold">Page not found</h1>
+          <p className="max-w-md text-sm text-slate-300">
+            The page you requested does not exist or is no longer available.
+          </p>
+          <div className="flex gap-3">
+            <Link
+              to="/"
+              className="rounded-full bg-cyan-400 px-5 py-2 text-sm font-medium text-slate-950"
+            >
+              Go home
+            </Link>
+            <Link
+              to="/login"
+              className="rounded-full border border-slate-700 px-5 py-2 text-sm font-medium text-slate-100"
+            >
+              Log in
+            </Link>
+          </div>
+        </main>
         <Scripts />
       </body>
     </html>
