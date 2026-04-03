@@ -1,0 +1,1 @@
+import{i as e}from"./useRouterState-CbJe8_fF.js";var t=e();function n({children:e,padding:n=!0,className:r=``,...i}){return(0,t.jsx)(`div`,{className:`provisioners-glass rounded-[24px] ${n?`p-6`:``} ${r}`,...i,children:e})}export{n as t};
