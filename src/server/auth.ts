@@ -137,20 +137,25 @@ async function syncUserFromAuth(authUser: {
 }
 
 export const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
-  if (!hasSupabaseServerEnv()) {
+  try {
+    if (!hasSupabaseServerEnv()) {
+      return null
+    }
+
+    const supabase = getSupabaseServerClient()
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser()
+
+    if (!authUser) return null
+
+    const user = await syncUserFromAuth(authUser)
+
+    return user
+  } catch (error) {
+    console.error('fetchUser failed', error)
     return null
   }
-
-  const supabase = getSupabaseServerClient()
-  const {
-    data: { user: authUser },
-  } = await supabase.auth.getUser()
-
-  if (!authUser) return null
-
-  const user = await syncUserFromAuth(authUser)
-
-  return user
 })
 
 export const loginFn = createServerFn({ method: 'POST' })

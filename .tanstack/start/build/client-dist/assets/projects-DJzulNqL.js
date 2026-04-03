@@ -1,1 +1,0 @@
-import{i as e}from"./useRouterState-CbJe8_fF.js";import{v as t}from"./main-S7sxyQ4u.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};

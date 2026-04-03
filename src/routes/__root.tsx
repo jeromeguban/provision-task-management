@@ -28,7 +28,14 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     ],
   }),
   beforeLoad: async () => {
-    const user = await fetchUser();
+    let user = null;
+
+    try {
+      user = await fetchUser();
+    } catch (error) {
+      console.error("Root beforeLoad failed to fetch user", error);
+    }
+
     return { user };
   },
   component: RootComponent,
