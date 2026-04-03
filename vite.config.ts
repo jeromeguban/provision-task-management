@@ -1,6 +1,8 @@
 import { defineConfig, type Plugin } from 'vite'
+import react from '@vitejs/plugin-react'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const patchTssProcessEnv: Plugin = {
   name: 'patch-tss-process-env',
@@ -12,12 +14,11 @@ const patchTssProcessEnv: Plugin = {
 }
 
 export default defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-  },
   plugins: [
+    tsconfigPaths(),
     patchTssProcessEnv,
     tailwindcss(),
+    react(),
     ...tanstackStart({
       customViteReactPlugin: true,
       tsr: {
