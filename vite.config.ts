@@ -15,6 +15,7 @@ export default defineConfig({
       tsr: {
         srcDirectory: 'src',
       },
+      target: 'vercel',
     }),
   ],
 })
