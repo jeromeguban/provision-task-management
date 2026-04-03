@@ -1,5 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
-import { parseCookies, setCookie } from '@tanstack/react-start/server'
+import { parseCookies, setCookie } from '@tanstack/start-server-core'
 import { getSupabaseServerEnv } from '@/lib/server-env'
 
 export function getSupabaseServerClient() {

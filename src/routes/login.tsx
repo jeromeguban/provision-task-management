@@ -32,7 +32,14 @@ function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showSuccessLoader, setShowSuccessLoader] = useState(false);
-  const [dailyPulse] = useState(() => createDailyPulseSnapshot());
+  const [dailyPulse, setDailyPulse] = useState<ReturnType<typeof createDailyPulseSnapshot>>({
+    count: 24,
+    heights: [34, 52, 48, 76, 62, 72],
+  })
+
+  useEffect(() => {
+    setDailyPulse(createDailyPulseSnapshot())
+  }, []);
 
   useEffect(() => {
     if (!showSuccessLoader) {
