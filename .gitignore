@@ -1,10 +1,5 @@
 node_modules
-dist
 .vercel
-.output
-.nitro
-.tanstack
 .env
 *.local
 package-lock.json
-src/generated/prisma
