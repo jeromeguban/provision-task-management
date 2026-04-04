@@ -6,7 +6,7 @@ COPY package.json ./
 RUN npm install --ignore-scripts
 
 COPY . .
-RUN npx prisma generate
+RUN DATABASE_URL=postgresql://dummy npx prisma generate
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
