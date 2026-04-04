@@ -20,6 +20,9 @@ export default defineConfig({
     patchTssProcessEnv,
     ...tanstackStart({
       srcDirectory: 'src',
+      server: {
+        preset: process.env.VERCEL ? 'vercel' : 'node',
+      },
     }),
     tailwindcss(),
     react(),
