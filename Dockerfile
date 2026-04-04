@@ -3,10 +3,10 @@ FROM node:22-bookworm-slim AS base
 WORKDIR /app
 
 COPY package.json ./
-COPY prisma ./prisma
-RUN npm install
+RUN npm install --ignore-scripts
 
 COPY . .
+RUN npx prisma generate
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
