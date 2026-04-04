@@ -1,5 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "tanstack-start",
-  "nodeVersion": "22.x"
+  "framework": "tanstack-start"
 }
